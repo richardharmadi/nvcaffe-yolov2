@@ -21,6 +21,22 @@ namespace caffe {
 using ::google::protobuf::Message;
 using ::boost::filesystem::path;
 
+bool MapNameToLabel(const LabelMap& map, const bool strict_check,
+                    std::map<string, int>* name_to_label);
+
+inline bool MapNameToLabel(const LabelMap& map,
+                           std::map<string, int>* name_to_label) {
+  return MapNameToLabel(map, true, name_to_label);
+}
+
+bool MapLabelToName(const LabelMap& map, const bool strict_check,
+                    std::map<int, string>* label_to_name);
+
+inline bool MapLabelToName(const LabelMap& map,
+                           std::map<int, string>* label_to_name) {
+  return MapLabelToName(map, true, label_to_name);
+}
+
 inline void MakeTempDir(string* temp_dirname) {
   temp_dirname->clear();
   const path& model =
@@ -145,7 +161,17 @@ cv::Mat DecodeDatumToCVMatNative(const Datum& datum);
 cv::Mat DecodeDatumToCVMat(const Datum& datum, bool is_color);
 
 void CVMatToDatum(const cv::Mat& cv_img, Datum* datum);
+
+bool ReadBoxDataToDatum(const std::string& filename, const std::string& annoname,
+    const std::map<std::string, int>& label_map, const int height, const int width, 
+    const bool is_color, const std::string & encoding, Datum* datum);
 #endif  // USE_OPENCV
+
+void ParseXmlToDatum(const std::string& annoname, const std::map<std::string, int>& label_map,
+    int ori_w, int ori_h, Datum* datum);
+
+bool ReadFileToDatum(const std::string& filename, const string& annoname,
+    const std::map<std::string, int>& label_map, int ori_w, int ori_h, Datum* datum);
 
 }  // namespace caffe
 

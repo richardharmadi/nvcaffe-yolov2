@@ -6,19 +6,16 @@ It is developed by the Berkeley Vision and Learning Center ([BVLC](http://bvlc.e
 
 Check out the [project site](http://caffe.berkeleyvision.org) for all the details like
 
-- [DIY Deep Learning for Vision with Caffe](https://docs.google.com/presentation/d/1UeKXVgRvvxg9OUdh_UiC5G71UMscNPlvArsWER41PsU/edit#slide=id.p)
-- [Tutorial Documentation](http://caffe.berkeleyvision.org/tutorial/)
-- [BVLC reference models](http://caffe.berkeleyvision.org/model_zoo.html) and the [community model zoo](https://github.com/BVLC/caffe/wiki/Model-Zoo)
-- [Installation instructions](http://caffe.berkeleyvision.org/installation.html)
+# NVCaffe
 
-and step-by-step examples.
+NVIDIA Caffe ([NVIDIA Corporation &copy;2017](http://nvidia.com)) is an NVIDIA-maintained fork of BVLC Caffe tuned for NVIDIA GPUs, particularly in multi-GPU configurations.
 
-[![Join the chat at https://gitter.im/BVLC/caffe](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/BVLC/caffe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Caffe-YOLOv2 by [gklz](https://github.com/gklz1982/caffe-yolov2)
 
-Please join the [caffe-users group](https://groups.google.com/forum/#!forum/caffe-users) or [gitter chat](https://gitter.im/BVLC/caffe) to ask questions and talk about methods and models.
-Framework development discussions and thorough bug reports are collected on [Issues](https://github.com/BVLC/caffe/issues).
+Custom Caffe distribution with support to train YOLO v2 using Caffe custom layers.
 
-Happy brewing!
+# Build Setup
+See the [Dockerfile](https://github.com/richardharmadi/nvcaffe-yolov2.git)
 
 ## License and Citation
 
@@ -33,3 +30,9 @@ Please cite Caffe in your publications if it helps your research:
       Title = {Caffe: Convolutional Architecture for Fast Feature Embedding},
       Year = {2014}
     }
+
+## Credits
+This application uses Open Source components. You can find the source code of their open source projects below. We acknowledge and are grateful to these developers for their contributions to open source.
+
+Project: Caffe-YOLOv2 by [gklz](https://github.com/gklz1982/caffe-yolov2)
+for the implementation of reorg layer, region layer, and detection loss layer
