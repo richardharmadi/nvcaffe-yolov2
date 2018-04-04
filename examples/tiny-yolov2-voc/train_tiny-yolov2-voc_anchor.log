@@ -1,0 +1,13 @@
+[libprotobuf ERROR google/protobuf/text_format.cc:299] Error parsing text-format caffe.SolverParameter: 12:8: Message type "caffe.SolverParameter" has no field named "stagelr".
+F0404 06:15:55.848897    80 upgrade_proto.cpp:1063] Check failed: ReadProtoFromTextFile(param_file, param) Failed to parse SolverParameter file: ./tiny-yolov2-voc-solver.prototxt
+*** Check failure stack trace: ***
+    @     0x7f8a4bd9d5cd  google::LogMessage::Fail()
+    @     0x7f8a4bd9f433  google::LogMessage::SendToLog()
+    @     0x7f8a4bd9d15b  google::LogMessage::Flush()
+    @     0x7f8a4bd9fe1e  google::LogMessageFatal::~LogMessageFatal()
+    @     0x7f8a4c5182c1  caffe::ReadSolverParamsFromTextFileOrDie()
+    @           0x40b796  train()
+    @           0x4086d8  main
+    @     0x7f8a4a7ef830  __libc_start_main
+    @           0x408e49  _start
+    @              (nil)  (unknown)
