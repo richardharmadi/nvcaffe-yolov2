@@ -890,6 +890,8 @@ message DataParameter {
   // Number of processing threads.  0 means use defaults. 1 thread for CPU or
   // cpu logical cores / number of GPUs
   optional uint32 threads  = 11 [default = 0];
+
+  repeated uint32 side = 12;
 }
 
 message DropoutParameter {

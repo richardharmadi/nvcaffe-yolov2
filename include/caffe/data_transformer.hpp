@@ -11,6 +11,13 @@
 
 namespace caffe {
 
+class BoxLabel {
+ public:
+  float class_label_;
+  float difficult_;
+  float box_[4];
+};
+
 /**
  * @brief Applies common transformations to the input data, such as
  * scaling, mirroring, substracting the image mean...
@@ -59,6 +66,7 @@ class DataTransformer {
    */
   void Transform(const Datum& datum, Blob<Dtype>* transformed_blob);
 
+  void Transform(const Datum& datum, Blob<Dtype>* transformed_blob, vector<BoxLabel>* box_labels);
   /**
    * @brief Applies the transformation defined in the data layer's
    * transform_param block to the data.

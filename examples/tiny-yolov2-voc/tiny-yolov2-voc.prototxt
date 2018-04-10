@@ -17,7 +17,6 @@ layer {
   data_param {
     source: "../../data/tiny-yolov2-voc/lmdb/trainval_lmdb"
     batch_size: 8
-    side: 12
     backend: LMDB
   }
 }
@@ -39,7 +38,6 @@ layer {
   data_param {
     source: "../../data/tiny-yolov2-voc/lmdb/test2007_lmdb"
     batch_size: 4
-    side: 12
     backend: LMDB
   }
 }
@@ -515,7 +513,7 @@ layer {
 layer {
   name: "det_loss"
   type: "RegionLoss"
-  bottom: "conv_reg"
+  bottom: "conv9"
   bottom: "label"
   top: "det_loss"
   loss_weight: 1

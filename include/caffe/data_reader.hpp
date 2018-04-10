@@ -77,6 +77,63 @@ class DataReader {
 DISABLE_COPY_AND_ASSIGN(DataReader);
 };
 
+class DataReaderDatum {
+ public:
+  explicit DataReaderDatum(const LayerParameter& param);
+  ~DataReaderDatum();
+
+  inline BlockingQueue<Datum*>& free() const {
+    return queue_pair_->free_;
+  }
+  inline BlockingQueue<Datum*>& full() const {
+    return queue_pair_->full_;
+  }
+
+ protected:
+  // Queue pairs are shared between a body and its readers
+  class QueuePairDatum {
+   public:
+    explicit QueuePairDatum(int size);
+    ~QueuePairDatum();
+
+    BlockingQueue<Datum*> free_;
+    BlockingQueue<Datum*> full_;
+
+  DISABLE_COPY_AND_ASSIGN(QueuePairDatum);
+  };
+
+  // A single body is created per source
+  class BodyDatum : public InternalThread {
+   public:
+    explicit BodyDatum(const LayerParameter& param);
+    virtual ~BodyDatum();
+
+   protected:
+    void InternalThreadEntryDatum();
+    void read_oneDatum(db::Cursor* cursor, QueuePairDatum* qp);
+
+    const LayerParameter param_;
+    BlockingQueue<shared_ptr<QueuePairDatum> > new_queue_pairs_;
+
+    friend class DataReaderDatum;
+
+  DISABLE_COPY_AND_ASSIGN(BodyDatum);
+  };
+
+  // A source is uniquely identified by its layer name + path, in case
+  // the same database is read from two different locations in the net.
+  static inline string source_key(const LayerParameter& param) {
+    return param.name() + ":" + param.data_param().source();
+  }
+
+  const shared_ptr<QueuePairDatum> queue_pair_;
+  shared_ptr<BodyDatum> body_;
+
+  static map<const string, boost::weak_ptr<DataReaderDatum::BodyDatum> > bodies_;
+
+DISABLE_COPY_AND_ASSIGN(DataReaderDatum);
+};
+
 }  // namespace caffe
 
 #endif  // CAFFE_DATA_READER_HPP_
